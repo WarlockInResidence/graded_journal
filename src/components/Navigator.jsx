@@ -1,34 +1,54 @@
-import React, { Component } from 'react';
-import {
-  Navbar,
-  Nav,
-  Dropdown,
-  Form,
-  Button,
-  BSpan
-} from 'bootstrap-4-react';
+import React, {Component} from 'react';
+import {Navbar, Nav, BSpan } from 'bootstrap-4-react';
+import {HashRouter, Switch, Route} from "react-router-dom";
+
+const HomeItems = props => (
+    <React.Fragment>
+        <Nav.ItemLink href="#/" active>
+            Home
+            <BSpan srOnly>(current)</BSpan>
+        </Nav.ItemLink>
+        <Nav.ItemLink href="#/login" active>
+            Login
+        </Nav.ItemLink>
+    </React.Fragment>
+)
+
+const LoginItems = props => (
+    <React.Fragment>
+        <Nav.ItemLink href="#/" active>
+            Home
+        </Nav.ItemLink>
+        <Nav.ItemLink href="#/login" active>
+            Login
+            <BSpan srOnly>(current)</BSpan>
+        </Nav.ItemLink>
+    </React.Fragment>
+)
 
 export default class Navigator extends Component {
-  render() {
-    return (
-      <Navbar expand="md" dark bg="dark" fixed="top">
-        <Navbar.Brand href="#">Graded Journal</Navbar.Brand>
-        <Navbar.Toggler target="#navbarsExampleDefault" />
+    render() {
+        return (
+            <Navbar expand="md" dark bg="dark" fixed="top">
+                <Navbar.Brand href="#">Graded Journal</Navbar.Brand>
+                <Navbar.Toggler target="#navbarsExampleDefault"/>
 
-        <Navbar.Collapse id="navbarsExampleDefault">
-          <Navbar.Nav mr="auto">
-            <Nav.ItemLink href="#" active>
-              Home
-              <BSpan srOnly>(current)</BSpan>
-            </Nav.ItemLink>
-            <Nav.ItemLink href="#">Login</Nav.ItemLink>
-          </Navbar.Nav>
-          <Form inline my="2 lg-0">
-            <Form.Input mr="sm-2" type="text" placeholder="Search" aria-label="Search" />
-            <Button outline success my="2 sm-0" type="submit">Search</Button>
-          </Form>
-        </Navbar.Collapse>
-      </Navbar>
-    )
-  }
+                <Navbar.Collapse id="navbarsExampleDefault">
+                    <Navbar.Nav mr="auto">
+                        <HashRouter>
+                            <Switch>
+                                <Route exact path="/" component={HomeItems} />
+                                <Route exact path="/login" component={LoginItems} />
+                            </Switch>
+                        </HashRouter>
+                    </Navbar.Nav>
+                    <Navbar.Nav>
+                        <Navbar.Text>
+                            Welcome Traveler
+                        </Navbar.Text>
+                    </Navbar.Nav>
+                </Navbar.Collapse>
+            </Navbar>
+        )
+    }
 }
